@@ -1,6 +1,7 @@
 package com.example.gleoplay.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material.icons.Icons
@@ -8,6 +9,7 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Gamepad
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.VideogameAsset
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
@@ -36,6 +38,11 @@ fun HomeScreen(
     ) {
         val horizontalPadding = 50.dp
         val tileSpacing = 25.dp
+
+        // 현재 선택된 메뉴
+        var selectedMenu by remember {
+            mutableStateOf<String?>(null)
+        }
 
         // 기존보다 메뉴 크기를 약 20% 축소
         val availableTileWidth =
@@ -104,36 +111,51 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 HomeActionCard(
-                    icon = Icons.Default.Gamepad,
+                    icon = Icons.Default.VideogameAsset,
                     title = "게임 시작",
                     description = "지금 바로 시작하기",
-                    onClick = onStart,
+                    onClick = {
+                        selectedMenu = "게임 시작"
+                        onStart()
+                    },
                     modifier = Modifier.size(tileSize),
-                    highlighted = true
+                    highlighted = selectedMenu == "게임 시작"
                 )
 
                 HomeActionCard(
                     icon = Icons.Default.Tune,
                     title = "게임 모드",
                     description = "난이도, 인원 수 등 설정",
-                    onClick = onMode,
-                    modifier = Modifier.size(tileSize)
+                    onClick = {
+                        selectedMenu = "게임 모드"
+                        onMode()
+                    },
+                    modifier = Modifier.size(tileSize),
+                    highlighted = selectedMenu == "게임 모드"
                 )
 
                 HomeActionCard(
                     icon = Icons.Default.BarChart,
                     title = "게임 기록",
                     description = "지난 기록을 확인하세요",
-                    onClick = onHistory,
-                    modifier = Modifier.size(tileSize)
+                    onClick = {
+                        selectedMenu = "게임 기록"
+                        onHistory()
+                    },
+                    modifier = Modifier.size(tileSize),
+                    highlighted = selectedMenu == "게임 기록"
                 )
 
                 HomeActionCard(
                     icon = Icons.Default.Settings,
                     title = "설정",
                     description = "환경을 변경하세요",
-                    onClick = onSettings,
-                    modifier = Modifier.size(tileSize)
+                    onClick = {
+                        selectedMenu = "설정"
+                        onSettings()
+                    },
+                    modifier = Modifier.size(tileSize),
+                    highlighted = selectedMenu == "설정"
                 )
             }
 

@@ -11,11 +11,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
+import com.example.gleoplay.R
 import com.example.gleoplay.components.PageTitle
 import com.example.gleoplay.ui.theme.AppColors.Lavender
 import com.example.gleoplay.ui.theme.AppColors.Panel
@@ -142,7 +145,10 @@ fun HistoryScreen(
 
                     VerticalDivider(
                         modifier = Modifier
-                            .height(65.dp * scale),
+                            .height(65.dp * scale)
+                            .padding(
+                                horizontal = 50.dp
+                            ),
                         color = Lavender.copy(alpha = 0.6f)
                     )
 
@@ -156,7 +162,10 @@ fun HistoryScreen(
 
                     VerticalDivider(
                         modifier = Modifier
-                            .height(65.dp * scale),
+                            .height(65.dp * scale)
+                            .padding(
+                                horizontal = 50.dp
+                            ),
                         color = Lavender.copy(alpha = 0.6f)
                     )
 
@@ -177,8 +186,17 @@ fun HistoryScreen(
                             )
                         ) {
                             Text(
-                                "$sortOrder  ⌄",
+                                "$sortOrder",
                                 fontSize = 18.sp * scale
+                            )
+
+                            Spacer(modifier = Modifier.width(15.dp * scale))
+
+                            Icon(
+                                painter = painterResource(id = R.drawable.arrow_down),
+                                contentDescription = "드롭다운 열기", // 필수 파라미터 (장식용이면 null 입력 가능)
+                                tint = White, // 버튼 글자색과 통일 (원본 이미지 색상을 유지하려면 Color.Unspecified 입력)
+                                modifier = Modifier.size(18.dp * scale) // 텍스트 크기에 맞춘 화살표 크기
                             )
                         }
 
@@ -430,10 +448,11 @@ private fun HistoryItem(
 
         Spacer(Modifier.width(15.dp * scale))
 
-        Text(
-            "›",
-            color = Lavender,
-            fontSize = 36.sp * scale
+        Icon(
+            painter = painterResource(id = R.drawable.arrow_forward),
+            contentDescription = "드롭다운 열기", // 필수 파라미터 (장식용이면 null 입력 가능)
+            tint = Lavender, // 버튼 글자색과 통일 (원본 이미지 색상을 유지하려면 Color.Unspecified 입력)
+            modifier = Modifier.size(24.dp * scale) // 텍스트 크기에 맞춘 화살표 크기
         )
     }
 }
