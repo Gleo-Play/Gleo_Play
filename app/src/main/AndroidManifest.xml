@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 차량(AAOS) 앱. 일반 에뮬레이터에서도 화면 확인이 되도록 required=false -->
+    <uses-feature android:name="android.hardware.type.automotive" android:required="false" />
+
+    <!-- 음성: 질문 뒤 대기 시간 동안만 대답을 듣는다. 원문은 저장하지 않는다 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <!-- 차량 신호(읽기 전용): 기어·브레이크·주행 시간 / 방향지시등 / 경고등 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+    <uses-permission android:name="pleos.car.permission.CAR_LIGHTS" />
+    <uses-permission android:name="pleos.car.permission.CAR_SAFETY" />
+    <!-- 경고등(Telltales) 조회는 CAR_SAFETY만으로는 SecurityException — 에뮬레이터 v2.1.0 실기 확인 -->
+    <uses-permission android:name="pleos.car.permission.PRIVATE_CAR_SAFETY" />
+    <!-- 내비: TBT·주의 지점·도착 이벤트 조회 -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <!-- AAOS 차속(PERF_VEHICLE_SPEED) -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
 
     <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:name=".GleoPlayApp"
+        android:allowBackup="false"
+        android:icon="@drawable/ic_gleoplay"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.GleoPlay">
+        android:supportsRtl="false"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.GleoPlay"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="landscape">
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--
+                주행 중에는 이 화면이 3분할 위젯 패널을 보여 준다.
+                그래서 주행 제한 최적화(DO)를 선언한다. 실제 허용 여부는 Pleos 심사 확인 사항.
+            -->
+            <meta-data android:name="distractionOptimized" android:value="true" />
         </activity>
-    </application>
 
+    </application>
 </manifest>
