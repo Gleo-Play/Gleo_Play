@@ -9,7 +9,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.io.File
 
-/** 질문 데이터 검수: 개수·중복·금칙어·연령 규칙(순한맛) */
+/** 질문 데이터 검수: 개수·중복·금칙어·연령 규칙(연령 맞춤 모드) */
 @RunWith(RobolectricTestRunner::class)
 @Config(application = android.app.Application::class)
 class QuestionDataTest {

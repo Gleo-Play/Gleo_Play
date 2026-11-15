@@ -63,7 +63,7 @@ class Store(context: Context) {
         get() = p.getInt("waitSec", 15)
         set(v) = p.edit().putInt("waitSec", v).apply()
 
-    /** 함께 탄 아이(순한맛). 아이 정보는 연령대 하나만 기기에 저장한다(이름·생일 없음) */
+    /** 함께 탄 아이(연령 맞춤 모드). 아이 정보는 연령대 하나만 기기에 저장한다(이름·생일 없음) */
     var kidBand: KidBand
         get() = enumOr(p.getString("kidBand", null), KidBand.NONE)
         set(v) = p.edit().putString("kidBand", v.name).apply()

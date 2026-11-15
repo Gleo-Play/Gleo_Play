@@ -137,7 +137,7 @@ fun ModeScreen(graph: AppGraph, onBack: () -> Unit) {
                     Stepper(players, "명", 1, 6) { players = it; s.players = it }
                 }
                 Divider()
-                SettingRow("함께 탄 아이", if (kid.hasKid) "순한맛: 나이에 맞는 질문만, ‘연애’는 잠겨요" else "가장 어린 아이 기준으로 골라 주세요") {
+                SettingRow("함께 탄 아이", if (kid.hasKid) "연령 맞춤 모드: 연령에 맞는 질문" else "가장 어린 아이 기준으로 골라 주세요") {
                     Segmented(KidBand.entries, kid, { it.label }) { kid = it; s.kidBand = it }
                 }
                 Divider()
